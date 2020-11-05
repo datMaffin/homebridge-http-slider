@@ -123,7 +123,7 @@ SliderAccessory.prototype = {
 
         var newState = percentageToSlider(percentage , numberOfStates);
 
-        setNextRequest(this.config.http_states[newState]);
+        setNextRequest(this.config.request_type, this.config.http_states[newState]);
 
         var interval = range / (numberOfStates - 1);
         var section = (interval * newState) + this.range_low;
@@ -188,10 +188,12 @@ var reset = function(service, characteristic, delay){
  * Prevents a fast succession of http get requests
  */
 var callrequest = false;
-var callhttp = '';
+var callrequesttype = 'get';
+var callrequestinfo = {};
 
-var setNextRequest = function(url) {
-    callhttp = url;
+var setNextRequest = function(requesttype, requestinfo) {
+    callrequesttype = requesttype;
+    callrequestinfo = requestinfo;
     callrequest = true;
 };
 
@@ -200,7 +202,7 @@ var startRequestInterval = function(interval) {
         if (callrequest) {
             callrequest = false;
             if (callhttp !== '')
-                request(callhttp, function() {});
+                request[callrequesttype](callrequestinfo, function() {});
         }
     }, interval);
 };

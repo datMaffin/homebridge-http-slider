@@ -25,14 +25,16 @@ Mandatory
             "accessory": "Slider",
             "name": "Slider Name",
             "service": "Lightbulb",
+            "request_type": "get",
             "http_states": [
-                "http://127.0.0.1/0",
-                "http://127.0.0.1/1",
-                "http://127.0.0.1/2"
+                {"url": "http://127.0.0.1/0", "body": "hi"},
+                {"url": "http://127.0.0.1/1", "body": "hi"},
+                {"url": "http://127.0.0.1/2", "body": "hi"}
             ],
 ```
 * `name` can be freely chosen
 * Supported `service`s are `Lightbulb`, `Fan` and `Thermostat`
+* `request_type` can be any request type like "get" or "post". 
 * `http_states` http-urls who get called when the slider gets set to a specific
   state. A low index in the array represents a low value/state in the slider.
 
