@@ -201,7 +201,7 @@ var startRequestInterval = function(interval) {
     setInterval(function() {
         if (callrequest) {
             callrequest = false;
-            if (callhttp !== '')
+            if (callrequestinfo !== {})
                 request[callrequesttype](callrequestinfo, function() {});
         }
     }, interval);
